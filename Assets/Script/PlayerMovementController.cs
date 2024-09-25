@@ -44,6 +44,6 @@ public class PlayerMovementController : MonoBehaviour
     {
         GUIStyle style = new GUIStyle();
         style.fontSize = 18;
-        GUI.Label(new Rect(10, 10, 0, 0), moveDirection.x, style);
+        GUI.Label(new Rect(10, 10, 0, 0), "move X: " + moveDirection.x, style);
     }
 }
