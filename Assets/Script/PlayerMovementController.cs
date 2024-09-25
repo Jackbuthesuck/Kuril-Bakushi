@@ -40,4 +40,10 @@ public class PlayerMovementController : MonoBehaviour
     {
         rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed,0 , moveDirection.y * moveSpeed);
     }
+    void OnGUI()
+    {
+        GUIStyle style = new GUIStyle();
+        style.fontSize = 18;
+        GUI.Label(new Rect(10, 10, 0, 0), moveDirection.x, style);
+    }
 }

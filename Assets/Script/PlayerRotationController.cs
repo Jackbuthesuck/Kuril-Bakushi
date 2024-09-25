@@ -28,7 +28,7 @@ public class PlayerRotationController : MonoBehaviour
     }
     void Start()
     {
-
+        rb.freezeRotation = true;
     }
 
     void Update()
