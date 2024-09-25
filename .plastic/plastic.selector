@@ -1,0 +1,4 @@
+repository "Kuril Bakushi@niniRe@cloud"
+  path "/"
+    br "/main"
+    co "/main"
