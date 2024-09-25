@@ -7,16 +7,30 @@ public class Bullet : MonoBehaviour
     public float velocity;
     public float damage;
     public float lifeTime;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float angle;
+
+
     void Start()
     {
-
+         angle = transform.eulerAngles.y;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        rb.linearVelocity = new Vector3(velocity * Mathf.Cos(transform.eulerAngles.y), 0, velocity * Mathf.Sin(transform.eulerAngles.y));
+        if (angle < 90)
+        {
+            rb.linearVelocity = new Vector3(velocity * Mathf.Cos(transform.eulerAngles.y), 0, velocity * Mathf.Sin(transform.eulerAngles.y));
+            if(angle < 180)
+            {
+                rb.linearVelocity = new Vector3(velocity * Mathf.Cos(transform.eulerAngles.y), 0, -velocity * Mathf.Sin(transform.eulerAngles.y));
+                if (angle < 270)
+                {
+                    rb.linearVelocity = new Vector3(-velocity * Mathf.Cos(transform.eulerAngles.y), 0, -velocity * Mathf.Sin(transform.eulerAngles.y));
+                }
+            }
+        } 
+        else rb.linearVelocity = new Vector3(-velocity * Mathf.Cos(transform.eulerAngles.y), 0, velocity * Mathf.Sin(transform.eulerAngles.y));
+
         lifeTime -= Time.deltaTime;
         if(lifeTime < 0)    Destroy(gameObject);
     }
