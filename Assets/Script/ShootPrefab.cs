@@ -10,7 +10,8 @@ public class shootPrefab : MonoBehaviour
 
     public GameObject bullet;
 
-    public Transform Origin;
+    public Transform origin;
+    private Quaternion yes;
     private void Awake()
     {
         playerControl = new PlayerInputAction();
@@ -29,19 +30,19 @@ public class shootPrefab : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Origin = GetComponent<Transform>();
+        origin = GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        yes.eulerAngles = origin.eulerAngles;
     }
     void FixedUpdate()
     {
         if (attack.IsInProgress())
         {
-            Instantiate(bullet, Origin.position, Origin.eulerAngles);
+            Instantiate(bullet, origin.position, yes);
         }
     }
 }
