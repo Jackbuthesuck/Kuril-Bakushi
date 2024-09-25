@@ -9,7 +9,7 @@ public class PlayerRotationController : MonoBehaviour
 
     private InputAction look;
 
-    public float lerpStrenght;
+    public float lookSpeed;
 
     private float mathAngle = 0;
     private float targetAngle = 0;
@@ -41,7 +41,8 @@ public class PlayerRotationController : MonoBehaviour
         transform.position = new Vector3(playerPosition.position.x, 0.5f + playerPosition.position.y, playerPosition.position.z);
 
         Vector2 lookVector = look.ReadValue<Vector2>();
-        mathAngle = Mathf.Lerp(mathAngle, targetAngle, lerpStrenght);
+        if (mathAngle < targetAngle) mathAngle += lookSpeed;
+        else mathAngle -= lookSpeed;
         if (lookVector != Vector2.zero) targetAngle = Mathf.Atan2(lookVector.x, lookVector.y) * Mathf.Rad2Deg;
         rb.MoveRotation(Quaternion.Euler(0, mathAngle, 0));
     }
