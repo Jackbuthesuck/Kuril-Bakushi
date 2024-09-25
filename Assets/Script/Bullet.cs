@@ -17,19 +17,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        if (angle < 90)
-        {
-            rb.linearVelocity = new Vector3(velocity * Mathf.Cos(transform.eulerAngles.y), 0, velocity * Mathf.Sin(transform.eulerAngles.y));
-            if(angle < 180)
-            {
-                rb.linearVelocity = new Vector3(velocity * Mathf.Cos(transform.eulerAngles.y), 0, -velocity * Mathf.Sin(transform.eulerAngles.y));
-                if (angle < 270)
-                {
-                    rb.linearVelocity = new Vector3(-velocity * Mathf.Cos(transform.eulerAngles.y), 0, -velocity * Mathf.Sin(transform.eulerAngles.y));
-                }
-            }
-        } 
-        else rb.linearVelocity = new Vector3(-velocity * Mathf.Cos(transform.eulerAngles.y), 0, velocity * Mathf.Sin(transform.eulerAngles.y));
+        rb.linearVelocity = velocity * new Vector3(Mathf.Sin(transform.eulerAngles.y), 0, Mathf.Cos(transform.eulerAngles.y));
 
         lifeTime -= Time.deltaTime;
         if(lifeTime < 0)    Destroy(gameObject);
