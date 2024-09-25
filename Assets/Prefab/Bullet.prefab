@@ -152,5 +152,5 @@ MonoBehaviour:
   rb: {fileID: -2127612887799739535}
   velocity: 2
   damage: 0
-  lifeTime: 1
+  lifeTime: 5
   origin: {fileID: 0}

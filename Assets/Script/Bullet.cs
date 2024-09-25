@@ -7,20 +7,16 @@ public class Bullet : MonoBehaviour
     public float velocity;
     public float damage;
     public float lifeTime;
-
-    public Transform origin;
-    private Quaternion yes;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        origin = GetComponent<Transform>();
-        transform.eulerAngles = origin.eulerAngles;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        rb.linearVelocity = new Vector3(velocity, 0, 0);
+        rb.linearVelocity = new Vector3(velocity * Mathf.Cos(transform.eulerAngles.y), 0, velocity * Mathf.Sin(transform.eulerAngles.y));
         lifeTime -= Time.deltaTime;
         if(lifeTime < 0)    Destroy(gameObject);
     }
