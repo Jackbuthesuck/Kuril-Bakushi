@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        rb.linearVelocity = velocity * new Vector3(Mathf.Sin(transform.eulerAngles.y), 0, Mathf.Cos(transform.eulerAngles.y));
+        rb.linearVelocity = velocity * new Vector3(Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.y), 0, Mathf.Cos(Mathf.Deg2Rad * transform.eulerAngles.y));
 
         lifeTime -= Time.deltaTime;
         if(lifeTime < 0)    Destroy(gameObject);
