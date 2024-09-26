@@ -43,8 +43,6 @@ public class PlayerRotationController : MonoBehaviour
         transform.position = new Vector3(playerPosition.position.x, 0.5f + playerPosition.position.y, playerPosition.position.z);
 
         lookVector = look.ReadValue<Vector2>();
-        if (mathAngle < targetAngle) mathAngle += lookSpeed;
-        else mathAngle -= lookSpeed;
         if (lookVector.x > minForce || lookVector.y > minForce || lookVector.x < -minForce || lookVector. y < -minForce)
             targetAngle = Mathf.Atan2(lookVector.x, lookVector.y) * Mathf.Rad2Deg;
         mathAngle = Mathf.LerpAngle(mathAngle, targetAngle, lerpStrenght);
