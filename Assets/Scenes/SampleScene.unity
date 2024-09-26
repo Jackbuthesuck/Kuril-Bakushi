@@ -355,7 +355,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 244345396}
   playerPosition: {fileID: 1032597604}
-  lookSpeed: 2
+  lookSpeed: 0
+  minForce: 2
+  lerpStrenght: 0.05
 --- !u!54 &244345396
 Rigidbody:
   m_ObjectHideFlags: 0
