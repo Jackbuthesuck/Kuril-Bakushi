@@ -164,8 +164,8 @@ MonoBehaviour:
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSearchRange: 5
   ChamberingTime: 1
-  sightRange: 10
-  attackRange: 5
+  sightRange: 50
+  attackRange: 25
   playerInSightRange: 0
   playerInAttackRange: 0
 --- !u!195 &1708696165846688578

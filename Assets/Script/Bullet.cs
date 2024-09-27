@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     public float damage;
     public float lifeTime;
 
-
+    public GameObject whoShotMe;
 
     void Start()
     {

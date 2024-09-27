@@ -9,6 +9,8 @@ public class EnemyController : MonoBehaviour
     public GameObject bullet;
 
     private Quaternion yes;
+
+    private string whoAmI = "Jame";
     // Patroling
     public Vector3 walkPoint;
     bool walkPointIsSet;
@@ -73,7 +75,7 @@ public class EnemyController : MonoBehaviour
         {
             isChambering = true;
             yes.eulerAngles = this.transform.eulerAngles;
-            Instantiate(bullet, this.transform.position, yes);
+            Instantiate(bullet, this.transform.position, yes, bullet.whoShotMe = this.gameObject);
             Invoke(nameof(Chamber), ChamberingTime);
         }
     }
@@ -83,11 +85,12 @@ public class EnemyController : MonoBehaviour
         isChambering = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider thing)
     {
-        if (other.CompareTag("Bullet"))
+        if (thing.CompareTag("Bullet"))
         {
-            Destroy(gameObject);
+            if (thing.gameObject.whoShotMe == this.gameObject.name) { }
+            else Destroy(gameObject);
         }
     }
 
