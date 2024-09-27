@@ -17,6 +17,7 @@ public class PlayerRotationController : MonoBehaviour
     public float lookSpeed;
     public float minForce;
     public float lerpStrenght;
+    public float aimSpeedMultiplier;
 
     public bool isAiming;
 
@@ -59,32 +60,32 @@ public class PlayerRotationController : MonoBehaviour
             lookVector = move.ReadValue<Vector2>();
             targetAngle = Mathf.Atan2(lookVector.x, lookVector.y) * Mathf.Rad2Deg;
         }
-
         else
         {
             lookVector = look.ReadValue<Vector2>();
             if (lookVector.x > minForce || lookVector.y > minForce || lookVector.x < -minForce || lookVector.y < -minForce)
                 targetAngle = Mathf.Atan2(lookVector.x, lookVector.y) * Mathf.Rad2Deg;
         }
-        nowAngle = Mathf.LerpAngle(nowAngle, targetAngle, lerpStrenght);
+        if (aim.IsInProgress())
+        {
+            isAiming = true;
+            nowAngle = Mathf.LerpAngle(nowAngle, targetAngle, lerpStrenght / aimSpeedMultiplier);
+        }
+        else
+        {
+            isAiming = false;
+            nowAngle = Mathf.LerpAngle(nowAngle, targetAngle, lerpStrenght);
+        }
         rb.MoveRotation(Quaternion.Euler(0, nowAngle, 0));
     }
 
     private void FixedUpdate()
     {
-        if (aim.IsInProgress())
-        {
-            isAiming = true;
-        }
-        else isAiming = false;
+
     }
     void OnGUI()
     {
         GUIStyle style = new GUIStyle();
         style.fontSize = 18;
-        GUI.Label(new Rect(10, 30, 0, 0), "Math Angle: " + nowAngle, style);
-        GUI.Label(new Rect(10, 50, 0, 0), "Targ Angle: " + targetAngle, style);
-        GUI.Label(new Rect(10, 70, 0, 0), "Look X: " + lookVector.x, style);
-        GUI.Label(new Rect(10, 90, 0, 0), "Look Y: " + lookVector.y, style);
     }
 }

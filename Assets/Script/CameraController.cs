@@ -47,23 +47,35 @@ public class CameraController : MonoBehaviour
     }
     void Update()
     {
+        lookVector = (look.ReadValue<Vector2>());
+        if (lookVector.x > playerRotationController.minForce || lookVector.y > playerRotationController.minForce || lookVector.x < -playerRotationController.minForce || lookVector.y < -playerRotationController.minForce)
+            targetAngle = Mathf.Atan2(lookVector.x, lookVector.y);
         if (playerMovementController.isSprinting == true)
             targetCameraPositionAdjust = sprintLookDistanceMultiplier * move.ReadValue<Vector2>();
         else if (playerRotationController.isAiming == true)
         {
-            lookVector = (look.ReadValue<Vector2>());
-            if (lookVector.x > playerRotationController.minForce || lookVector.y > playerRotationController.minForce || lookVector.x < -playerRotationController.minForce || lookVector.y < -playerRotationController.minForce)
-            {
-                targetAngle = Mathf.Atan2(lookVector.x, lookVector.y);
-                targetCameraPositionAdjust.x = aimLookDistanceMultiplier * Mathf.Sin(targetAngle);
-                targetCameraPositionAdjust.y = aimLookDistanceMultiplier * Mathf.Cos(targetAngle);
-            }
+            nowAngle = Mathf.LerpAngle(nowAngle, targetAngle * Mathf.Rad2Deg, lerpStrenght / playerRotationController.aimSpeedMultiplier);
+            targetCameraPositionAdjust.x = aimLookDistanceMultiplier * Mathf.Sin(nowAngle * Mathf.Deg2Rad);
+            targetCameraPositionAdjust.y = aimLookDistanceMultiplier * Mathf.Cos(nowAngle * Mathf.Deg2Rad);
         }
-        else targetCameraPositionAdjust = Vector2.zero;
+        else
+        {
+            nowAngle = targetAngle;
+            targetCameraPositionAdjust = Vector2.zero;
+        }
 
         nowCameraPositionAdjust.x = Mathf.Lerp(nowCameraPositionAdjust.x, targetCameraPositionAdjust.x, lerpStrenght);
         nowCameraPositionAdjust.y = Mathf.Lerp(nowCameraPositionAdjust.y, targetCameraPositionAdjust.y, lerpStrenght);
 
         transform.position = new Vector3(playerPosition.position.x + nowCameraPositionAdjust.x ,cameraHeight ,playerPosition.position.z + nowCameraPositionAdjust.y);
+    }
+    void OnGUI()
+    {
+        GUIStyle style = new GUIStyle();
+        style.fontSize = 18;
+        GUI.Label(new Rect(10, 30, 0, 0), "Math Angle: " + nowAngle, style);
+        GUI.Label(new Rect(10, 50, 0, 0), "Targ Angle: " + targetAngle, style);
+        GUI.Label(new Rect(10, 70, 0, 0), "Look X: " + lookVector.x, style);
+        GUI.Label(new Rect(10, 90, 0, 0), "Look Y: " + lookVector.y, style);
     }
 }
