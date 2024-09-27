@@ -17,7 +17,7 @@ public class EnemyController : MonoBehaviour
     public float walkPointSearchRange;
 
     //Attack
-    public float ChamberingTime;
+    public float chamberingTime;
     bool isChambering;
 
     //States
@@ -77,7 +77,7 @@ public class EnemyController : MonoBehaviour
             yes.eulerAngles = this.transform.eulerAngles;
             GameObject instantiatedBullet = Instantiate(bullet, this.transform.position, yes);
             instantiatedBullet.GetComponent<Bullet>().whoShotMe = gameObject;
-            Invoke(nameof(Chamber), ChamberingTime);
+            Invoke(nameof(Chamber), chamberingTime);
         }
     }
 

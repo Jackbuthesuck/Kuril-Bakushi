@@ -60,7 +60,7 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            nowAngle = targetAngle;
+            nowAngle = targetAngle * Mathf.Rad2Deg;
             targetCameraPositionAdjust = Vector2.zero;
         }
 

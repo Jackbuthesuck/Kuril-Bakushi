@@ -13,6 +13,7 @@ public class PlayerRotationController : MonoBehaviour
 
     public PlayerMovementController playerMovementController;
     public CameraController cameraController;
+    public GameObject rotLongOverlay;
 
     public float lookSpeed;
     public float minForce;
@@ -69,11 +70,13 @@ public class PlayerRotationController : MonoBehaviour
         if (aim.IsInProgress())
         {
             isAiming = true;
+            rotLongOverlay.SetActive(true);
             nowAngle = Mathf.LerpAngle(nowAngle, targetAngle, lerpStrenght / aimSpeedMultiplier);
         }
         else
         {
             isAiming = false;
+            rotLongOverlay.SetActive(false);
             nowAngle = Mathf.LerpAngle(nowAngle, targetAngle, lerpStrenght);
         }
         rb.MoveRotation(Quaternion.Euler(0, nowAngle, 0));
