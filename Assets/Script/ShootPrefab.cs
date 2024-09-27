@@ -42,7 +42,7 @@ public class shootPrefab : MonoBehaviour
     {
         if (attack.IsInProgress())
         {
-            Instantiate(bullet, origin.position, yes);
+            Instantiate(bullet, this.transform, instantiateInWorldSpace:false);
         }
     }
 }

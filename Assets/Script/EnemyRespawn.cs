@@ -18,24 +18,21 @@ public class EnemyRespawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (this.transform.childCount > 0)
+        {
+            timer = 50;
+        }
     }
     void FixedUpdate()
     {
         timer -= 1;
         if (timer < 0)
         {
-            Instantiate(enemy, origin.position, Quaternion.identity);
+            Instantiate(enemy, this.transform, worldPositionStays: false);
             timer = 50;
         }
     }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            timer = timerStart;
-        }
-    }
+
     void OnGUI()
     {
         GUIStyle style = new GUIStyle();

@@ -7,12 +7,12 @@ public class Bullet : MonoBehaviour
     public float velocity;
     public float damage;
     public float lifeTime;
-    public float angle;
+
 
 
     void Start()
     {
-         angle = transform.eulerAngles.y;
+
     }
 
     void Update()
