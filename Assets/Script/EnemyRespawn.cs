@@ -37,7 +37,5 @@ public class EnemyRespawn : MonoBehaviour
     {
         GUIStyle style = new GUIStyle();
         style.fontSize = 18;
-        GUI.Label(new Rect(200, 30, 0, 0), "Spawn: " + timer, style);
-
     }
 }

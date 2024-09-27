@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,7 +10,6 @@ public class EnemyController : MonoBehaviour
     public GameObject bullet;
     private Quaternion yes;
 
-    private string whoAmI = "Jame";
     // Patroling
     public Vector3 walkPoint;
     bool walkPointIsSet;
@@ -75,7 +75,7 @@ public class EnemyController : MonoBehaviour
             isChambering = true;
             yes.eulerAngles = this.transform.eulerAngles;
             GameObject instantiatedBullet = Instantiate(bullet, this.transform.position, yes);
-            (Bullet) instantiatedBullet.whoShotMe = this.gameObject;
+            instantiatedBullet.GetComponent<Bullet>().whoShotMe = gameObject;
             Invoke(nameof(Chamber), ChamberingTime);
         }
     }
@@ -85,11 +85,11 @@ public class EnemyController : MonoBehaviour
         isChambering = false;
     }
 
-    private void OnTriggerEnter(Collider thing)
+    private void OnTriggerEnter(Collider other)
     {
-        if (thing.CompareTag("Bullet"))
+        if (other.CompareTag("Bullet"))
         {
-            if (thing.gameObject.whoShotMe == this.gameObject.name) { }
+            if (other.gameObject.GetComponent<Bullet>().whoShotMe.name == this.gameObject.name) { }
             else Destroy(gameObject);
         }
     }
@@ -98,7 +98,5 @@ public class EnemyController : MonoBehaviour
     {
         GUIStyle style = new GUIStyle();
         style.fontSize = 18;
-        GUI.Label(new Rect(400, 30, 0, 0), "Walkpoint set: " + walkPointIsSet, style);
-        GUI.Label(new Rect(400, 50, 0, 0), "isChambering : " + isChambering, style);
     }
 }

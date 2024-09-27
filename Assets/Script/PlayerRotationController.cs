@@ -8,6 +8,9 @@ public class PlayerRotationController : MonoBehaviour
     public PlayerInputAction playerControl;
 
     private InputAction look;
+    private InputAction move;
+
+    public PlayerMovementController playerMovementController;
 
     public float lookSpeed;
     public float minForce;
@@ -26,12 +29,15 @@ public class PlayerRotationController : MonoBehaviour
     private void OnEnable()
     {
         look = playerControl.Player.Look;
+        move = playerControl.Player.Move;
         look.Enable();
+        move.Enable();
     }
 
     private void OnDisable()
     {
         look.Disable();
+        move.Disable();
     }
     void Start()
     {
@@ -41,10 +47,18 @@ public class PlayerRotationController : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(playerPosition.position.x, 0.5f + playerPosition.position.y, playerPosition.position.z);
-
-        lookVector = look.ReadValue<Vector2>();
-        if (lookVector.x > minForce || lookVector.y > minForce || lookVector.x < -minForce || lookVector. y < -minForce)
+        if (playerMovementController.isSprinting == true)
+        {
+            lookVector = move.ReadValue<Vector2>();
             targetAngle = Mathf.Atan2(lookVector.x, lookVector.y) * Mathf.Rad2Deg;
+        }
+
+        else
+        {
+            lookVector = look.ReadValue<Vector2>();
+            if (lookVector.x > minForce || lookVector.y > minForce || lookVector.x < -minForce || lookVector.y < -minForce)
+                targetAngle = Mathf.Atan2(lookVector.x, lookVector.y) * Mathf.Rad2Deg;
+        }
         mathAngle = Mathf.LerpAngle(mathAngle, targetAngle, lerpStrenght);
         rb.MoveRotation(Quaternion.Euler(0, mathAngle, 0));
     }

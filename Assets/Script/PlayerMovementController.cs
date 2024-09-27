@@ -4,12 +4,19 @@ using UnityEngine.UIElements;
 public class PlayerMovementController : MonoBehaviour
 {
     public Rigidbody rb;
-    public float moveSpeed = 1.0f;
     public PlayerInputAction playerControl;
 
     private InputAction move;
+    private InputAction sprint;
 
-    UnityEngine.Vector2 moveDirection = UnityEngine.Vector2.zero;
+    public PlayerRotationController rotationController;
+
+    public float moveSpeed = 1.0f;
+    public float sprintMultiplier = 2.0f;
+
+    public bool isSprinting;
+
+    Vector2 moveDirection = Vector2.zero;
 
     private void Awake()
     {
@@ -18,13 +25,16 @@ public class PlayerMovementController : MonoBehaviour
 
     private void OnEnable()
     {
+        sprint = playerControl.Player.Sprint;
+        sprint.Enable();
         move = playerControl.Player.Move;
         move.Enable();
     }
 
     private void OnDisable()
     {
-        move.Disable();
+        move.Disable(); 
+        sprint.Disable();
     }
     void Start()
     {
@@ -38,12 +48,18 @@ public class PlayerMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed,0 , moveDirection.y * moveSpeed);
+        if (sprint.IsInProgress())
+        {
+            isSprinting = true;
+            moveDirection *= sprintMultiplier;
+        }
+        else isSprinting = false;
+        rb.linearVelocity = new Vector3(moveDirection.x * moveSpeed, 0, moveDirection.y * moveSpeed);
     }
     void OnGUI()
     {
         GUIStyle style = new GUIStyle();
         style.fontSize = 18;
-        GUI.Label(new Rect(10, 10, 0, 0), "move X: " + moveDirection.x, style);
+        GUI.Label(new Rect(10, 10, 0, 0), "isSprinting: " + isSprinting, style);
     }
 }
