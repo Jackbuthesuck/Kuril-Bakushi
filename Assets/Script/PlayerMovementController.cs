@@ -9,7 +9,7 @@ public class PlayerMovementController : MonoBehaviour
     private InputAction move;
     private InputAction sprint;
 
-    public PlayerRotationController rotationController;
+    public PlayerRotationController playerRotationController;
 
     public float moveSpeed = 1.0f;
     public float sprintMultiplier = 2.0f;
@@ -26,15 +26,15 @@ public class PlayerMovementController : MonoBehaviour
     private void OnEnable()
     {
         sprint = playerControl.Player.Sprint;
-        sprint.Enable();
         move = playerControl.Player.Move;
+        sprint.Enable();
         move.Enable();
     }
 
     private void OnDisable()
     {
-        move.Disable(); 
         sprint.Disable();
+        move.Disable(); 
     }
     void Start()
     {
@@ -50,6 +50,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (sprint.IsInProgress())
         {
+            playerRotationController.isAiming = false;
             isSprinting = true;
             moveDirection *= sprintMultiplier;
         }
