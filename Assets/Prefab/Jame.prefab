@@ -161,6 +161,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   bullet: {fileID: 8139244158865264547, guid: 175efa3870f91054a81e81714d2dfefe, type: 3}
+  health: 100
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSearchRange: 5
   ChamberingTime: 1

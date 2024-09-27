@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     public GameObject bullet;
     private Quaternion yes;
 
+    public float health;
     // Patroling
     public Vector3 walkPoint;
     bool walkPointIsSet;
@@ -90,7 +91,8 @@ public class EnemyController : MonoBehaviour
         if (other.CompareTag("Bullet"))
         {
             if (other.gameObject.GetComponent<Bullet>().whoShotMe.name == this.gameObject.name) { }
-            else Destroy(gameObject);
+            else health -= other.gameObject.GetComponent<Bullet>().damage;
+            if (health <= 0) Destroy(gameObject); 
         }
     }
 

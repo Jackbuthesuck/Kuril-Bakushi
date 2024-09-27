@@ -151,5 +151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: -2127612887799739535}
   velocity: 50
-  damage: 0
+  damage: 20
   lifeTime: 5
+  whoShotMe: {fileID: 0}
