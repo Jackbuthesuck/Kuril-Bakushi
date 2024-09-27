@@ -1,7 +1,6 @@
-using System;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
+
 public class EnemyController : MonoBehaviour
 {
     public NavMeshAgent agent;
@@ -9,6 +8,7 @@ public class EnemyController : MonoBehaviour
     public LayerMask WhatIsGround, WhatIsPlayer;
     public GameObject bullet;
 
+    private Quaternion yes;
     // Patroling
     public Vector3 walkPoint;
     bool walkPointIsSet;
@@ -43,7 +43,7 @@ public class EnemyController : MonoBehaviour
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
-        if (distanceToWalkPoint.magnitude < 1f)
+        if (distanceToWalkPoint.magnitude < 0.5f)
             walkPointIsSet = false;
     }
 
@@ -67,13 +67,13 @@ public class EnemyController : MonoBehaviour
     {
         agent.SetDestination(transform.position);
 
-        transform.LookAt(player);
-
-        Instantiate(bullet, this.transform, instantiateInWorldSpace: false);
+        transform.LookAt(player, Vector3.up);
 
         if (!isChambering)
         {
             isChambering = true;
+            yes.eulerAngles = this.transform.eulerAngles;
+            Instantiate(bullet, this.transform.position, yes);
             Invoke(nameof(Chamber), ChamberingTime);
         }
     }
@@ -96,5 +96,6 @@ public class EnemyController : MonoBehaviour
         GUIStyle style = new GUIStyle();
         style.fontSize = 18;
         GUI.Label(new Rect(400, 30, 0, 0), "Walkpoint set: " + walkPointIsSet, style);
+        GUI.Label(new Rect(400, 50, 0, 0), "isChambering : " + isChambering, style);
     }
 }
