@@ -75,7 +75,8 @@ public class EnemyController : MonoBehaviour
         {
             isChambering = true;
             yes.eulerAngles = this.transform.eulerAngles;
-            Instantiate(bullet, this.transform.position, yes, bullet.whoShotMe = this.gameObject);
+            GameObject instantiatedBullet = Instantiate(bullet, this.transform.position, yes, bullet.whoShotMe = this.gameObject);
+            instantiatedBullet.whoShotMe = gameObject;
             Invoke(nameof(Chamber), ChamberingTime);
         }
     }
