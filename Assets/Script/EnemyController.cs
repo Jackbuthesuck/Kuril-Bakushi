@@ -7,7 +7,6 @@ public class EnemyController : MonoBehaviour
     public Transform player;
     public LayerMask WhatIsGround, WhatIsPlayer;
     public GameObject bullet;
-
     private Quaternion yes;
 
     private string whoAmI = "Jame";
@@ -75,8 +74,8 @@ public class EnemyController : MonoBehaviour
         {
             isChambering = true;
             yes.eulerAngles = this.transform.eulerAngles;
-            GameObject instantiatedBullet = Instantiate(bullet, this.transform.position, yes, bullet.whoShotMe = this.gameObject);
-            instantiatedBullet.whoShotMe = gameObject;
+            GameObject instantiatedBullet = Instantiate(bullet, this.transform.position, yes);
+            (Bullet) instantiatedBullet.whoShotMe = this.gameObject;
             Invoke(nameof(Chamber), ChamberingTime);
         }
     }
