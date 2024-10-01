@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 
     public float velocity;
     public float damage;
+    public int pellet;
     public float lifeTime;
 
     public GameObject whoShotMe;
@@ -21,5 +22,9 @@ public class Bullet : MonoBehaviour
 
         lifeTime -= Time.deltaTime;
         if(lifeTime < 0)    Destroy(gameObject);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject);
     }
 }
