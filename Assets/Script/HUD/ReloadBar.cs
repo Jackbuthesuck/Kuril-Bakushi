@@ -18,9 +18,4 @@ public class ReloadBar : MonoBehaviour
         magazine = GameObject.Find("Player").GetComponent<PlayerWeaponController>().weapon.GetComponent<Magazine>();
         this.transform.localScale = new Vector3(0, 1, 1);
     }
-    public void ReloadInterrupted()
-    {
-        this.transform.localScale = new Vector3(0, 1, 1);
-    }
-
 }
