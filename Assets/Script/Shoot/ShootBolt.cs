@@ -4,27 +4,18 @@ using UnityEngine.InputSystem;
 using System;
 using Unity.VisualScripting;
 
-public class ShootBolt: MonoBehaviour
+public class ShootBolt : MonoBehaviour
 {
     public PlayerInputAction playerControl;
     private InputAction attack;
     private InputAction reload;
     public GameObject bullet;
 
-    public int magazineMax;
-    public int magazineNow;
-
-    public float rpm;
-    public float chamberDuration; // use rpm instead
-    public float reloadDuration;
-
-    public float chamberTime;
-    public float reloadTime;
-
     public bool isReloading;
     public bool isChambering;
     public bool isChambered;
 
+    public Magazine magazine;
     public GameObject parent;
     private Quaternion yes;
 
@@ -50,31 +41,38 @@ public class ShootBolt: MonoBehaviour
     void Start()
     {
         parent = GameObject.Find("Player");
-        chamberDuration = (60 / rpm);
+        magazine = this.GetComponent<Magazine>();
+        magazine.chamberDuration = (60 / magazine.rpm);
     }
 
     void Update()
     {
         if (isChambering)
         {
-            if (magazineNow <= 0) isChambering = false;
+            if (magazine.now <= 0) isChambering = false;
             if (isChambered) isChambering = false;
-            chamberTime -= Time.deltaTime;
-            if (chamberTime <= 0)
+            magazine.chamberTime -= Time.deltaTime;
+            if (magazine.chamberTime <= 0)
             {
-                magazineNow--;
+                magazine.now--;
+                magazine.Reload();
                 isChambered = true;
                 isChambering = false;
             }
         }
         if (isReloading)
         {
-            if (attack.WasPressedThisFrame()) isReloading = false;
-            reloadTime -= Time.deltaTime;
-            if (reloadTime <= 0)
+            if (attack.WasPressedThisFrame())
             {
-                magazineNow = magazineMax;
-                chamberTime = chamberDuration;
+                isReloading = false;
+                magazine.ReloadInterrupted();
+            }
+            magazine.reloadTime -= Time.deltaTime;
+            if (magazine.reloadTime <= 0)
+            {
+                magazine.now = magazine.max;
+                magazine.Change();
+                magazine.chamberTime = magazine.chamberDuration;
                 isChambering = true;
                 isReloading = false;
             }
@@ -89,7 +87,7 @@ public class ShootBolt: MonoBehaviour
                     if (isChambering) { }
                     else
                     {
-                        chamberTime = chamberDuration;
+                        magazine.chamberTime = magazine.chamberDuration;
                         isChambering = true;
                     }
                 }
@@ -97,7 +95,8 @@ public class ShootBolt: MonoBehaviour
 
             if (reload.WasPressedThisFrame())
             {
-                reloadTime = reloadDuration;
+                magazine.reloadTime = magazine.reloadDuration;
+                magazine.Reload();
                 isReloading = true;
             }
         }
@@ -105,7 +104,7 @@ public class ShootBolt: MonoBehaviour
 
     void FixedUpdate()
     {
-        
+
     }
 
     private void Shoot()
@@ -113,7 +112,7 @@ public class ShootBolt: MonoBehaviour
         yes.eulerAngles = this.transform.eulerAngles;
         GameObject instantiatedBullet = Instantiate(bullet, this.transform.position, yes);
         instantiatedBullet.GetComponent<Bullet>().whoShotMe = parent.gameObject;
-        chamberTime = chamberDuration;
+        magazine.chamberTime = magazine.chamberDuration;
         isChambered = false;
     }
 }

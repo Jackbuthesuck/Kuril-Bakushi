@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DVL-10
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 988a09185b013c5498a277f005c3293a, type: 3}
+      propertyPath: m_TagString
+      value: Weapon
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -71,6 +75,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 988a09185b013c5498a277f005c3293a, type: 3}
       insertIndex: -1
       addedObject: {fileID: -7298312974696133120}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 988a09185b013c5498a277f005c3293a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8461904830315787159}
   m_SourcePrefab: {fileID: 100100000, guid: 988a09185b013c5498a277f005c3293a, type: 3}
 --- !u!1 &7201649433255149695 stripped
 GameObject:
@@ -90,8 +97,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 0}
-  magazineMax: 0
-  magazineNow: 0
   rpm: 0
   chamberDuration: 0
   reloadDuration: 0
@@ -100,4 +105,19 @@ MonoBehaviour:
   isReloading: 0
   isChambering: 0
   isChambered: 0
+  magazine: {fileID: 0}
   parent: {fileID: 0}
+--- !u!114 &8461904830315787159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7201649433255149695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9db5578b100fc7489d8f69c08669799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  max: 10
+  now: 10
