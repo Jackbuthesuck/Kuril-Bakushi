@@ -1097,6 +1097,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 244345391}
     m_Modifications:
+    - target: {fileID: -5113330540191001550, guid: d2444a747fb409b419644534d8b75214, type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 244345390}
+    - target: {fileID: -5113330540191001550, guid: d2444a747fb409b419644534d8b75214, type: 3}
+      propertyPath: magazine
+      value: 
+      objectReference: {fileID: 462570251}
+    - target: {fileID: -5113330540191001550, guid: d2444a747fb409b419644534d8b75214, type: 3}
+      propertyPath: isChambered
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7148544382729502879, guid: d2444a747fb409b419644534d8b75214, type: 3}
       propertyPath: m_Name
       value: Ks-23

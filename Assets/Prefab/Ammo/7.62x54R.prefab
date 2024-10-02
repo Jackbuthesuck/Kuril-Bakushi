@@ -153,6 +153,7 @@ MonoBehaviour:
   velocity: 240
   damage: 120
   pellet: 1
-  spread: 0.02
+  moa: 1.3
+  spread: 0
   lifeTime: 5
   whoShotMe: {fileID: 0}

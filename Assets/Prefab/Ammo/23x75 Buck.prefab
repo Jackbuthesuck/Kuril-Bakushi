@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2127612887799739535}
   - component: {fileID: 2524652801357450669}
   m_Layer: 0
-  m_Name: 4 Gauge
+  m_Name: 23x75 Buck
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,6 +153,7 @@ MonoBehaviour:
   velocity: 80
   damage: 25
   pellet: 8
-  spread: 2
+  moa: 16.24
+  spread: 0
   lifeTime: 5
   whoShotMe: {fileID: 0}

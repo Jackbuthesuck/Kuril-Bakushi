@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     public float velocity;
     public float damage;
     public int pellet;
+    public float moa;
     public float spread;
     public float lifeTime;
 
@@ -14,7 +15,7 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-
+        spread = moa * 0.0166667f;
     }
 
     void Update()
