@@ -150,8 +150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: -2127612887799739535}
-  velocity: 50
-  damage: 20
+  velocity: 80
+  damage: 25
   pellet: 8
+  spread: 2
   lifeTime: 5
   whoShotMe: {fileID: 0}

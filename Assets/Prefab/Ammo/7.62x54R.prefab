@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2127612887799739535}
   - component: {fileID: 2524652801357450669}
   m_Layer: 0
-  m_Name: 7.62x39
+  m_Name: 7.62x54R
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,9 +150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: -2127612887799739535}
-  velocity: 200
-  damage: 40
+  velocity: 240
+  damage: 120
   pellet: 1
-  spread: 0.2
+  spread: 0.02
   lifeTime: 5
   whoShotMe: {fileID: 0}

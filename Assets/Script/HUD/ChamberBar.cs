@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ReloadBar : MonoBehaviour
+public class ChamberBar : MonoBehaviour
 {
     public Magazine magazine;
 
@@ -11,16 +11,11 @@ public class ReloadBar : MonoBehaviour
 
     void Update()
     {
-       this.transform.localScale = new Vector3 ((magazine.reloadTime / magazine.reloadDuration) - 1,1 ,1);
+       this.transform.localScale = new Vector3 ((magazine.chamberTime / magazine.chamberDuration) - 1,1 ,1);
     }
     public void DoTheThing()
     {
         magazine = GameObject.Find("Player").GetComponent<PlayerWeaponController>().weapon.GetComponent<Magazine>();
         this.transform.localScale = new Vector3(0, 1, 1);
     }
-    public void ReloadInterrupted()
-    {
-        this.transform.localScale = new Vector3(0, 1, 1);
-    }
-
 }

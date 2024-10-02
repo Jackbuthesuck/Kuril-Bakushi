@@ -1,8 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using System;
-using Unity.VisualScripting;
 
 public class ShootSemi: MonoBehaviour
 {
@@ -49,8 +46,16 @@ public class ShootSemi: MonoBehaviour
     {
         if (isChambering)
         {
-            if (magazine.now <= 0) isChambering = false;
-            if (isChambered) isChambering = false;
+            if (magazine.now <= 0)
+            {
+                isChambering = false;
+                magazine.chamberTime = 0;
+            }
+            if (isChambered)
+            {
+                isChambering = false;
+                magazine.chamberTime = 0;
+            }
             magazine.chamberTime -= Time.deltaTime;
             if (magazine.chamberTime <= 0)
             {
@@ -72,8 +77,11 @@ public class ShootSemi: MonoBehaviour
             {
                 magazine.now = magazine.max;
                 magazine.Change();
-                magazine.chamberTime = magazine.chamberDuration;
-                isChambering = true;
+                if (!isChambered)
+                {
+                    isChambering = true;
+                    magazine.chamberTime = magazine.chamberDuration;
+                }
                 isReloading = false;
             }
         }
@@ -109,9 +117,12 @@ public class ShootSemi: MonoBehaviour
 
     private void Shoot()
     {
-        yes.eulerAngles = this.transform.eulerAngles;
-        GameObject instantiatedBullet = Instantiate(bullet, this.transform.position, yes);
-        instantiatedBullet.GetComponent<Bullet>().whoShotMe = parent.gameObject;
+        for (int pellet = bullet.GetComponent<Bullet>().pellet; pellet > 0; pellet--)
+        {
+            yes.eulerAngles = this.transform.eulerAngles + new Vector3(0, Random.Range(bullet.GetComponent<Bullet>().spread, -bullet.GetComponent<Bullet>().spread), 0);
+            GameObject instantiatedBullet = Instantiate(bullet, this.transform.position, yes);
+            instantiatedBullet.GetComponent<Bullet>().whoShotMe = parent.gameObject;
+        }
         magazine.chamberTime = magazine.chamberDuration;
         isChambered = false;
         isChambering = true;

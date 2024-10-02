@@ -96,15 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a727a9fe89e74e44ab2bdf2c5c6a23d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
-  rpm: 0
-  chamberDuration: 0
-  reloadDuration: 0
-  chamberTime: 0
-  reloadTime: 0
+  bullet: {fileID: 8139244158865264547, guid: 0b313683ebbd028409f655ca4cdc6bfb, type: 3}
   isReloading: 0
   isChambering: 0
-  isChambered: 0
+  isChambered: 1
   magazine: {fileID: 0}
   parent: {fileID: 0}
 --- !u!114 &-4682461370566056271
@@ -121,3 +116,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max: 5
   now: 5
+  rpm: 30
+  chamberDuration: 0
+  reloadDuration: 0.66
+  chamberTime: 0
+  reloadTime: 0
+  ammoHud: {fileID: 0}
+  reloadBar: {fileID: 0}
+  chamberBar: {fileID: 0}

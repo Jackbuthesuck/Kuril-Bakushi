@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     public float velocity;
     public float damage;
     public int pellet;
+    public float spread;
     public float lifeTime;
 
     public GameObject whoShotMe;

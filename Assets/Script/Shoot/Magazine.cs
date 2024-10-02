@@ -14,10 +14,12 @@ public class Magazine : MonoBehaviour
 
     public Ammohud ammoHud;
     public ReloadBar reloadBar;
+    public ChamberBar chamberBar;
     void Start()
     {
         ammoHud = GameObject.Find("Magazine Hud").GetComponent<Ammohud>();
         reloadBar = GameObject.Find("Reload Bar").GetComponent<ReloadBar>();
+        chamberBar = GameObject.Find("Chamber Bar").GetComponent <ChamberBar>();
     }
 
     void Update()
@@ -27,6 +29,7 @@ public class Magazine : MonoBehaviour
     public void Change()
     {
         ammoHud.DoTheThing();
+        chamberBar.DoTheThing();
     }
     public void Reload()
     {
