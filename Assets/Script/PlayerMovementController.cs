@@ -61,6 +61,5 @@ public class PlayerMovementController : MonoBehaviour
     {
         GUIStyle style = new GUIStyle();
         style.fontSize = 18;
-        GUI.Label(new Rect(10, 10, 0, 0), "isSprinting: " + isSprinting, style);
     }
 }

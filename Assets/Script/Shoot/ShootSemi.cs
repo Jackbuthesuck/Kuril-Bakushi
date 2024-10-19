@@ -49,14 +49,12 @@ public class ShootSemi: MonoBehaviour
             if (magazine.now <= 0)
             {
                 isChambering = false;
-                magazine.chamberTime = 0;
             }
             if (isChambered)
             {
                 isChambering = false;
                 magazine.chamberTime = 0;
             }
-            magazine.chamberTime -= Time.deltaTime;
             if (magazine.chamberTime <= 0)
             {
                 magazine.now--;
@@ -64,6 +62,7 @@ public class ShootSemi: MonoBehaviour
                 isChambered = true;
                 isChambering = false;
             }
+            if (isChambering) magazine.chamberTime -= Time.deltaTime;
         }
         if (isReloading)
         {

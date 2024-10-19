@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class Bullet : MonoBehaviour
 {
@@ -10,9 +11,14 @@ public class Bullet : MonoBehaviour
     public float moa;
     public float spread;
     public float lifeTime;
+    public bool willDie;
 
     public GameObject whoShotMe;
+    public LayerMask whatIsWall, whatIsPlayer, whatIsEnemy;
 
+    private RaycastHit hit;
+    private Quaternion yes;
+    private Vector3 direction;
     void Start()
     {
         spread = moa * 0.0166667f;
@@ -20,8 +26,15 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
+        if (willDie) Destroy(gameObject);
         rb.linearVelocity = velocity * new Vector3(Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.y), 0, Mathf.Cos(Mathf.Deg2Rad * transform.eulerAngles.y));
-
+        if (Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.forward), out hit, velocity / 100))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            this.transform.position = hit.point;
+            willDie = true;
+            velocity = 0;
+        }
         lifeTime -= Time.deltaTime;
         if(lifeTime < 0)    Destroy(gameObject);
     }

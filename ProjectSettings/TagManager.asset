@@ -7,6 +7,8 @@ TagManager:
   - Bullet
   - Enemy
   - Weapon
+  - High Wall
+  - Low Wall
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - Player
   - Enemy
   - Spawner
-  - 
+  - Wall
   - 
   - 
   - 

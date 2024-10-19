@@ -73,9 +73,6 @@ public class CameraController : MonoBehaviour
     {
         GUIStyle style = new GUIStyle();
         style.fontSize = 18;
-        GUI.Label(new Rect(10, 30, 0, 0), "Math Angle: " + nowAngle, style);
-        GUI.Label(new Rect(10, 50, 0, 0), "Targ Angle: " + targetAngle, style);
-        GUI.Label(new Rect(10, 70, 0, 0), "Look X: " + lookVector.x, style);
-        GUI.Label(new Rect(10, 90, 0, 0), "Look Y: " + lookVector.y, style);
+
     }
 }

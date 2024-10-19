@@ -160,15 +160,19 @@ MonoBehaviour:
   WhatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
+  WhatIsWall:
+    serializedVersion: 2
+    m_Bits: 512
   bullet: {fileID: 8139244158865264547, guid: 175efa3870f91054a81e81714d2dfefe, type: 3}
   health: 100
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSearchRange: 5
   chamberingTime: 1
-  sightRange: 50
-  attackRange: 25
+  sightRange: 40
+  attackRange: 15
   playerInSightRange: 0
   playerInAttackRange: 0
+  haveLastKnownPosition: 0
 --- !u!195 &1708696165846688578
 NavMeshAgent:
   m_ObjectHideFlags: 0

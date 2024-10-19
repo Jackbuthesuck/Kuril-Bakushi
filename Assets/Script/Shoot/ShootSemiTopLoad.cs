@@ -55,7 +55,6 @@ public class ShootSemiTopLoad : MonoBehaviour
                 isChambering = false;
                 magazine.chamberTime = 0;
             }
-            magazine.chamberTime -= Time.deltaTime;
             if (magazine.chamberTime <= 0)
             {
                 magazine.now--;
@@ -63,6 +62,7 @@ public class ShootSemiTopLoad : MonoBehaviour
                 isChambered = true;
                 isChambering = false;
             }
+            if (isChambering) magazine.chamberTime -= Time.deltaTime;
         }
         if (isReloading)
         {
