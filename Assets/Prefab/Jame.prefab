@@ -164,10 +164,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   bullet: {fileID: 8139244158865264547, guid: 175efa3870f91054a81e81714d2dfefe, type: 3}
+  score: {fileID: 0}
   health: 100
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSearchRange: 5
-  chamberingTime: 1
+  chamberingTime: 0.2
   sightRange: 40
   attackRange: 15
   playerInSightRange: 0

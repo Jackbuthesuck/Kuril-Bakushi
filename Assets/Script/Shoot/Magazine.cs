@@ -24,7 +24,8 @@ public class Magazine : MonoBehaviour
 
     void Update()
     {
-
+        chamberTime = Mathf.Clamp(chamberTime, 0, 30);
+        reloadTime = Mathf.Clamp(reloadTime, 0, 30);
     }
     public void Change()
     {

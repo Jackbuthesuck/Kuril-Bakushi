@@ -150,10 +150,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: -2127612887799739535}
-  velocity: 80
+  velocity: 800
   damage: 25
   pellet: 8
   moa: 16.24
   spread: 0
   lifeTime: 5
+  willDie: 0
   whoShotMe: {fileID: 0}
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 512
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 64
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 128
