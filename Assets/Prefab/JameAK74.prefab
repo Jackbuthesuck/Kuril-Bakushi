@@ -166,9 +166,11 @@ MonoBehaviour:
   bullet: {fileID: 8139244158865264547, guid: 175efa3870f91054a81e81714d2dfefe, type: 3}
   score: {fileID: 0}
   health: 100
+  waitTimeUntilPatrol: 1
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointIsSet: 1
   walkPointSearchRange: 10
+  timeUntilPatrol: 0
   lastKnownPosition: {x: 0, y: 0, z: 0}
   chamberingTime: 0.25
   sightRange: 50

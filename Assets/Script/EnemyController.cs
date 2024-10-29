@@ -13,11 +13,13 @@ public class EnemyController : MonoBehaviour
     private Quaternion yes;
 
     public float health;
+    public float waitTimeUntilPatrol;
+
     // Patroling
     public Vector3 walkPoint;
     public bool walkPointIsSet;
     public float walkPointSearchRange;
-
+    public float timeUntilPatrol;
     public Vector3 lastKnownPosition;
 
     //Attack
@@ -42,18 +44,23 @@ public class EnemyController : MonoBehaviour
         if (playerInSightRange && !playerInAttackRange  && Physics.Raycast(this.transform.position, player.transform.position - this.transform.position, sightRange, WhatIsPlayer) 
                                                         && !Physics.Raycast(this.transform.position, player.transform.position - this.transform.position, sightRange, WhatIsWall))   ChasePlayer();
             else if (haveLastKnownPosition) GoLastKnownPosition();
-            else Patrol();
+            else if (timeUntilPatrol <= 0)  Patrol();
+            else timeUntilPatrol -= Time.deltaTime;
     }
 
     private void Patrol()
     {
-        if (!walkPointIsSet || (Physics.Raycast(walkPoint, -transform.up, 2f, WhatIsWall))) searchWalkpoint();
+        if (!walkPointIsSet || (Physics.Raycast(this.transform.position, walkPoint - this.transform.position, 0.25f, WhatIsWall)) 
+                            || Physics.CheckSphere(walkPoint, 0.25f, WhatIsWall)) searchWalkpoint();
         if (walkPointIsSet) agent.SetDestination(walkPoint);
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
         if (distanceToWalkPoint.magnitude < 2f)
+        {
+            timeUntilPatrol = waitTimeUntilPatrol;
             walkPointIsSet = false;
+        }   
     }
 
     private void searchWalkpoint()
@@ -63,7 +70,7 @@ public class EnemyController : MonoBehaviour
 
         walkPoint = new Vector3(transform.position.x + ranX, transform.position.y, transform.position.z + ranZ);
 
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, WhatIsGround)) if (!Physics.Raycast(walkPoint, -transform.up, 2f, WhatIsWall))
+        if (Physics.Raycast(walkPoint, -transform.up, 2f, WhatIsGround))
                 walkPointIsSet = true;
     }
 

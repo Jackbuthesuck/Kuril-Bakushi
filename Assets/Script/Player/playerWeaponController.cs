@@ -41,9 +41,9 @@ public class PlayerWeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (reload.WasPressedThisFrame()) weapon.GetComponent<WeaponController>().reload = true;
+        if (reload.IsPressed()) weapon.GetComponent<WeaponController>().reload = true;
         else weapon.GetComponent<WeaponController>().reload = false;
-        if (attack.WasPressedThisFrame()) weapon.GetComponent<WeaponController>().attack = true;
+        if (attack.IsPressed()) weapon.GetComponent<WeaponController>().attack = true;
         else weapon.GetComponent<WeaponController>().attack = false;
     }
     private void getWeapon()
