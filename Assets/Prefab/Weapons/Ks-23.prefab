@@ -74,7 +74,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 988a09185b013c5498a277f005c3293a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -5113330540191001550}
+      addedObject: {fileID: 6918617936976819945}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 988a09185b013c5498a277f005c3293a, type: 3}
       insertIndex: -1
       addedObject: {fileID: -5116694966626098303}
@@ -84,7 +84,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 988a09185b013c5498a277f005c3293a, type: 3}
   m_PrefabInstance: {fileID: 8067586219459608014}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-5113330540191001550
+--- !u!114 &6918617936976819945
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,13 +93,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 7148544382729502879}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a727a9fe89e74e44ab2bdf2c5c6a23d, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c9b0a0f6e72ed04bac046497e0105ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 8139244158865264547, guid: bf03adc2404e05a4b9cc93435f9a01dd, type: 3}
+  isTopLoad: 1
+  isFullAuto: 0
+  attack: 0
+  reload: 0
   isReloading: 0
   isChambering: 0
   isChambered: 1
+  triggerReleased: 0
   magazine: {fileID: 0}
   parent: {fileID: 0}
 --- !u!114 &-5116694966626098303

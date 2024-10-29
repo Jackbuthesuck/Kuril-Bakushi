@@ -97,9 +97,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 8139244158865264547, guid: 175efa3870f91054a81e81714d2dfefe, type: 3}
+  isTopLoad: 0
+  isFullAuto: 1
+  attack: 0
+  reload: 0
   isReloading: 0
   isChambering: 0
   isChambered: 1
+  triggerReleased: 0
   magazine: {fileID: 0}
   parent: {fileID: 0}
 --- !u!114 &-1704514430839694192

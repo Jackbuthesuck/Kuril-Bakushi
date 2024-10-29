@@ -15,10 +15,10 @@ public class EnemyController : MonoBehaviour
     public float health;
     // Patroling
     public Vector3 walkPoint;
-    bool walkPointIsSet;
+    public bool walkPointIsSet;
     public float walkPointSearchRange;
 
-    private Vector3 lastKnownPosition;
+    public Vector3 lastKnownPosition;
 
     //Attack
     public float chamberingTime;
@@ -41,18 +41,18 @@ public class EnemyController : MonoBehaviour
                                                         && !Physics.Raycast(this.transform.position, player.transform.position - this.transform.position, attackRange, WhatIsWall))  AttackPlayer();
         if (playerInSightRange && !playerInAttackRange  && Physics.Raycast(this.transform.position, player.transform.position - this.transform.position, sightRange, WhatIsPlayer) 
                                                         && !Physics.Raycast(this.transform.position, player.transform.position - this.transform.position, sightRange, WhatIsWall))   ChasePlayer();
-            else if (haveLastKnownPosition == true) GoLastKnownPosition();
+            else if (haveLastKnownPosition) GoLastKnownPosition();
             else Patrol();
     }
 
     private void Patrol()
     {
-        if (!walkPointIsSet) searchWalkpoint();
+        if (!walkPointIsSet || (Physics.Raycast(walkPoint, -transform.up, 2f, WhatIsWall))) searchWalkpoint();
         if (walkPointIsSet) agent.SetDestination(walkPoint);
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
-        if (distanceToWalkPoint.magnitude < 0.5f)
+        if (distanceToWalkPoint.magnitude < 2f)
             walkPointIsSet = false;
     }
 
@@ -87,7 +87,8 @@ public class EnemyController : MonoBehaviour
     private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
-
+        lastKnownPosition = player.position;
+        haveLastKnownPosition = true;
         transform.LookAt(player, Vector3.up);
 
         if (!isChambering)
