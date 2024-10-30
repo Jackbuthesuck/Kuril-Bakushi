@@ -11,6 +11,11 @@ public class PlayerWeaponController : MonoBehaviour
     public ReloadBar reloadBar;
     public ChamberBar chamberBar;
     public GameObject weapon;
+    public GameObject option1, option2, option3, option4, option5;
+    public MasterVariableContainer masterVariableContainer;
+    public StartingWeapon startingWeapon;
+
+    private Quaternion yes;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -32,10 +37,30 @@ public class PlayerWeaponController : MonoBehaviour
     }
     void Start()
     {
-        getWeapon();
         ammoHud = GameObject.Find("Magazine Hud").GetComponent<Ammohud>();
         reloadBar = GameObject.Find("Reload Bar").GetComponent<ReloadBar>();
         chamberBar = GameObject.Find("Chamber Bar").GetComponent<ChamberBar>();
+        startingWeapon = GameObject.Find("Cool Variable Container").GetComponent<MasterVariableContainer>().startingWeapon;
+        yes.eulerAngles = this.transform.eulerAngles;
+        switch (startingWeapon)
+        {
+            case StartingWeapon.option1:
+                Instantiate(option1, this.transform, worldPositionStays: false);
+                break;
+            case StartingWeapon.option2:
+                Instantiate(option2, this.transform, worldPositionStays: false);
+                break;
+            case StartingWeapon.option3:
+                Instantiate(option3, this.transform, worldPositionStays: false);
+                break;
+            case StartingWeapon.option4:
+                Instantiate(option4, this.transform, worldPositionStays: false);
+                break;
+            case StartingWeapon.option5:
+                Instantiate(option5, this.transform, worldPositionStays: false);
+                break;
+        }
+        getWeapon();
     }
 
     // Update is called once per frame

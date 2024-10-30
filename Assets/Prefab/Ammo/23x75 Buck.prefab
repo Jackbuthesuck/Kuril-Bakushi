@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: -2127612887799739535}
-  velocity: 800
+  velocity: 600
   damage: 25
   pellet: 8
   moa: 16.24

@@ -123,7 +123,7 @@ MonoBehaviour:
   now: 3
   rpm: 30
   chamberDuration: 0
-  reloadDuration: 0.5
+  reloadDuration: 0.33
   chamberTime: 0
   reloadTime: 0
   ammoHud: {fileID: 0}

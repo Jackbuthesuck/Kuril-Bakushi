@@ -64,8 +64,8 @@ public class PlayerRotationController : MonoBehaviour
         else
         {
             lookVector += look.ReadValue<Vector2>() / 100;
-            lookVector.x = Mathf.Clamp(lookVector.x, -1, 1);
-            lookVector.y = Mathf.Clamp(lookVector.y, -1, 1);
+            lookVector.x = Mathf.Clamp(lookVector.x, -5, 5);
+            lookVector.y = Mathf.Clamp(lookVector.y, -5, 5);
             targetAngle = Mathf.Atan2(lookVector.x, lookVector.y) * Mathf.Rad2Deg;
         }
         if (aim.IsInProgress())

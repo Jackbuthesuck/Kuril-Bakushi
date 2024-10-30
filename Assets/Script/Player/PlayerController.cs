@@ -1,6 +1,8 @@
+using System.Collections;
 using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,8 +21,10 @@ public class PlayerController : MonoBehaviour
     public float healthDamage = 0f;
     public float armorDamage = 0f;
     public float armorActualDamage = 0f;
-    public string hit1 = "none";
-    public string hit2 = "none";
+    public enum Hit1 {Normal, Bleed, Fire, Shock, None }
+    public Hit1 hit1;
+    public enum Hit2 {Normal, Fire, Gas, Toxic, Shock, None}
+    public Hit2 hit2;
     public float bleed = 0;
     public float fire = 0;
     public float gas = 0;
@@ -88,59 +92,59 @@ public class PlayerController : MonoBehaviour
         //Bullet type hit
         switch (hit1)
         {
-            case "normal":
+            case Hit1.Normal:
                 healthRegenTimer = 5f;
                 armorRegenTimer = 5f;
-                hit1 = "none";
+                hit1 = Hit1.None;
                 break;
-            case "bleed":
+            case Hit1.Bleed:
                 armorRegenTimer = 5f;
                 bleed += 5f;
-                hit1 = "none";
+                hit1 = Hit1.None;
                 break;
-            case "fire":
+            case Hit1.Fire:
                 healthRegenTimer = 2f;
                 armorRegenTimer = 10f;
                 fire += 5f;
-                hit1 = "none";
+                hit1 = Hit1.None;
                 break;
-            case "shock":
+            case Hit1.Shock:
                 shock += 5f;
-                hit1 = "none";
+                hit1 = Hit1.None;
                 break;
-            case "none":
+            case Hit1.None:
                 break;
         }
         //Enviroment type hit
         switch (hit2)
         {
-            case "normal": //Fall damage
+            case Hit2.Normal: //Fall damage
                 healthRegenTimer = 5f;
                 armorRegenTimer = 10f;
-                hit2 = "none";
+                hit2 = Hit2.None;
                 break;
-            case "fire":
+            case Hit2.Fire:
                 healthRegenTimer = 5f;
                 armorRegenTimer = 10f;
                 fire += 5f;
-                hit2 = "none";
+                hit2 = Hit2.None;
                 break;
-            case "gas":
+            case Hit2.Gas:
                 healthRegenTimer = 5f;
                 gas += 5f;
-                hit2 = "none";
+                hit2 = Hit2.None;
                 break;
-            case "toxic":
+            case Hit2.Toxic:
                 healthRegenTimer = 5f;
                 armorRegenTimer = 1;
                 gas += 5f;
-                hit2 = "none";
+                hit2 = Hit2.None;
                 break;
-            case "shock":
+            case Hit2.Shock:
                 shock += 5f;
-                hit2 = "none";
+                hit2 = Hit2.None;
                 break;
-            case "none":
+            case Hit2.None:
                 break;
         }
         //Armor Class
@@ -183,14 +187,20 @@ public class PlayerController : MonoBehaviour
             if (other.gameObject.GetComponent<Bullet>().whoShotMe.name == this.gameObject.name) { }
             else
             {
-                hit1 = "normal";
+                hit1 = Hit1.Normal;
                 healthDamage = other.gameObject.GetComponent<Bullet>().damage;
                 armorDamage = other.gameObject.GetComponent<Bullet>().damage;
             }
             if (health <= 0)
             {
-                
+                StartCoroutine(DelayAction());
             }
         }
+    }
+    IEnumerator DelayAction()
+    {
+        Time.timeScale = 0.25f;
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene("MainMenu");
     }
 }

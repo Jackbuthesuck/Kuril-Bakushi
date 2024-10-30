@@ -39,10 +39,10 @@ public class EnemyController : MonoBehaviour
     {
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, WhatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, WhatIsPlayer);
-        if (playerInSightRange && playerInAttackRange   && Physics.Raycast(this.transform.position, player.transform.position - this.transform.position, sightRange, WhatIsPlayer) 
-                                                        && !Physics.Raycast(this.transform.position, player.transform.position - this.transform.position, attackRange, WhatIsWall))  AttackPlayer();
-        if (playerInSightRange && !playerInAttackRange  && Physics.Raycast(this.transform.position, player.transform.position - this.transform.position, sightRange, WhatIsPlayer) 
-                                                        && !Physics.Raycast(this.transform.position, player.transform.position - this.transform.position, sightRange, WhatIsWall))   ChasePlayer();
+        if (playerInSightRange && playerInAttackRange   && Physics.Raycast(this.transform.position, player.transform.position - this.transform.position, Vector3.Distance(this.transform.position, player.transform.position), WhatIsPlayer) 
+                                                        && !Physics.Raycast(this.transform.position, player.transform.position - this.transform.position, Vector3.Distance(this.transform.position, player.transform.position), WhatIsWall))  AttackPlayer();
+        if (playerInSightRange && !playerInAttackRange  && Physics.Raycast(this.transform.position, player.transform.position - this.transform.position, Vector3.Distance(this.transform.position, player.transform.position), WhatIsPlayer) 
+                                                        && !Physics.Raycast(this.transform.position, player.transform.position - this.transform.position, Vector3.Distance(this.transform.position, player.transform.position), WhatIsWall))   ChasePlayer();
             else if (haveLastKnownPosition) GoLastKnownPosition();
             else if (timeUntilPatrol <= 0)  Patrol();
             else timeUntilPatrol -= Time.deltaTime;
@@ -54,9 +54,7 @@ public class EnemyController : MonoBehaviour
                             || Physics.CheckSphere(walkPoint, 0.25f, WhatIsWall)) searchWalkpoint();
         if (walkPointIsSet) agent.SetDestination(walkPoint);
 
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-
-        if (distanceToWalkPoint.magnitude < 2f)
+        if (Vector3.Distance(this.transform.position, walkPoint) < 1f)
         {
             timeUntilPatrol = waitTimeUntilPatrol;
             walkPointIsSet = false;
@@ -84,11 +82,11 @@ public class EnemyController : MonoBehaviour
     private void GoLastKnownPosition()
     {
         agent.SetDestination(lastKnownPosition);
-
-        Vector3 distanceToLastKnownPosition = this.transform.position - lastKnownPosition;
-
-        if (distanceToLastKnownPosition.magnitude < 1f)
+        if (Vector3.Distance(this.transform.position, lastKnownPosition) < 0.5f)
+        {
             haveLastKnownPosition = false;
+            timeUntilPatrol = waitTimeUntilPatrol;
+        }
     }
 
     private void AttackPlayer()
