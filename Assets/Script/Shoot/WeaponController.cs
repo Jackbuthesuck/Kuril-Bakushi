@@ -16,6 +16,13 @@ public class WeaponController : MonoBehaviour
     public bool isChambered;
     public bool triggerReleased;
 
+    public bool soundStart;
+    public bool soundReloading = true;
+    public bool soundFireing;
+    public bool soundFireingEnd = false;
+
+
+    public AudioManager audioManager;
     public Magazine magazine;
     public GameObject parent;
     private Quaternion yes;
@@ -26,6 +33,8 @@ public class WeaponController : MonoBehaviour
         parent = GameObject.Find("Player");
         magazine = this.GetComponent<Magazine>();
         magazine.chamberDuration = (60 / magazine.rpm);
+        audioManager = this.GetComponent<AudioManager>();
+        audioManager.PlayStart();
     }
 
     void Update()
@@ -54,6 +63,9 @@ public class WeaponController : MonoBehaviour
 
     private void Shoot()
     {
+        soundFireingEnd = true;
+        audioManager.PlayFire();
+
         for (int pellet = bullet.GetComponent<Bullet>().pellet; pellet > 0; pellet--)
         {
             yes.eulerAngles = this.transform.eulerAngles + new Vector3(0, Random.Range(bullet.GetComponent<Bullet>().moa * 0.0166667f, -bullet.GetComponent<Bullet>().moa * 0.0166667f), 0);
@@ -89,6 +101,8 @@ public class WeaponController : MonoBehaviour
 
     private void reloading()
     {
+        if (soundReloading) audioManager.PlayReload();
+        soundReloading = false;
         if (attack)
         {
             isReloading = false;
@@ -97,6 +111,7 @@ public class WeaponController : MonoBehaviour
         magazine.reloadTime -= Time.deltaTime;
         if (magazine.reloadTime <= 0)
         {
+            soundReloading = true;
             magazine.now = magazine.max;
             magazine.Change();
             if (!isChambered)
@@ -110,6 +125,8 @@ public class WeaponController : MonoBehaviour
 
     private void reloadingTopLoad()
     {
+        if (soundReloading) audioManager.PlayReload();
+        soundReloading = false;
         if (attack)
         {
             isReloading = false;
@@ -118,6 +135,7 @@ public class WeaponController : MonoBehaviour
         magazine.reloadTime -= Time.deltaTime;
         if (magazine.reloadTime <= 0)
         {
+            soundReloading = true;
             magazine.now++;
             magazine.Change();
             magazine.reloadTime = magazine.reloadDuration;
@@ -170,7 +188,12 @@ public class WeaponController : MonoBehaviour
                 }
             }
         }
-        else triggerReleased = true;
+        else
+        {
+            triggerReleased = true;
+            if (soundFireingEnd) audioManager.PlayFireEnd();
+            soundFireingEnd = false;
+        }
 
         if (reload)
         {
