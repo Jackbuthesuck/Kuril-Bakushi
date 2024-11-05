@@ -107,6 +107,7 @@ public class WeaponController : MonoBehaviour
         {
             if (magazine.now < 0)
             {
+                soundReloading = true;
                 isReloading = false;
                 magazine.ReloadInterrupted();
             }
