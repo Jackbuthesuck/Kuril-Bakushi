@@ -38,6 +38,6 @@ public class Magazine : MonoBehaviour
     }
     public void ReloadInterrupted()
     {
-        //reloadBar.ReloadInterrupted();
+        reloadBar.ReloadInterrupted();
     }
 }

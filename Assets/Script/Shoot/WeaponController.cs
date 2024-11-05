@@ -105,8 +105,11 @@ public class WeaponController : MonoBehaviour
         soundReloading = false;
         if (attack)
         {
-            isReloading = false;
-            magazine.ReloadInterrupted();
+            if (magazine.now < 0)
+            {
+                isReloading = false;
+                magazine.ReloadInterrupted();
+            }
         }
         magazine.reloadTime -= Time.deltaTime;
         if (magazine.reloadTime <= 0)
