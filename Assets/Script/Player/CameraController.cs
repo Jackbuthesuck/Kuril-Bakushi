@@ -47,12 +47,17 @@ public class CameraController : MonoBehaviour
     }
     void Update()
     {
-        lookVector = (look.ReadValue<Vector2>());
-        if (lookVector.x > playerRotationController.minForce || lookVector.y > playerRotationController.minForce || lookVector.x < -playerRotationController.minForce || lookVector.y < -playerRotationController.minForce)
+        lookVector += look.ReadValue<Vector2>() / 100;
+        if (lookVector.x > playerRotationController.minForce || lookVector.y > playerRotationController.minForce || lookVector.x < -playerRotationController.minForce 
+                        || lookVector.y < -playerRotationController.minForce)
+        {
+            lookVector.x = Mathf.Clamp(lookVector.x, -5, 5);
+            lookVector.y = Mathf.Clamp(lookVector.y, -5, 5);
             targetAngle = Mathf.Atan2(lookVector.x, lookVector.y);
+        }
         if (playerMovementController.isSprinting == true)
             targetCameraPositionAdjust = sprintLookDistanceMultiplier * move.ReadValue<Vector2>();
-        else if (playerRotationController.isAiming == true)
+        if (playerRotationController.isAiming == true)
         {
             nowAngle = Mathf.LerpAngle(nowAngle, targetAngle * Mathf.Rad2Deg, lerpStrenght / playerRotationController.aimSpeedMultiplier);
             targetCameraPositionAdjust.x = aimLookDistanceMultiplier * Mathf.Sin(nowAngle * Mathf.Deg2Rad);
@@ -60,14 +65,18 @@ public class CameraController : MonoBehaviour
         }
         else
         {
+            lookVector += look.ReadValue<Vector2>() / 100;
+            lookVector.x = Mathf.Clamp(lookVector.x, -5, 5);
+            lookVector.y = Mathf.Clamp(lookVector.y, -5, 5);
+            targetAngle = Mathf.Atan2(lookVector.x, lookVector.y) * Mathf.Rad2Deg;
             nowAngle = targetAngle * Mathf.Rad2Deg;
-            targetCameraPositionAdjust = Vector2.zero;
         }
 
         nowCameraPositionAdjust.x = Mathf.Lerp(nowCameraPositionAdjust.x, targetCameraPositionAdjust.x, lerpStrenght);
         nowCameraPositionAdjust.y = Mathf.Lerp(nowCameraPositionAdjust.y, targetCameraPositionAdjust.y, lerpStrenght);
-
         transform.position = new Vector3(playerPosition.position.x + nowCameraPositionAdjust.x ,cameraHeight ,playerPosition.position.z + nowCameraPositionAdjust.y);
+
+        targetCameraPositionAdjust = Vector2.zero;
     }
     void OnGUI()
     {

@@ -150,13 +150,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: -2127612887799739535}
-  velocity: 600
+  speed: 600
+  velocityMulAdjust: 10
   damage: 25
   pellet: 8
-  moa: 16.24
-  spread: 0
+  moa: 25
   lifeTime: 5
-  willDie: 0
+  skipFrame: 1
+  resumingFrame: 1
   whoShotMe: {fileID: 0}
   whatIsWall:
     serializedVersion: 2

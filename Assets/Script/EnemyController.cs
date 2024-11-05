@@ -46,6 +46,14 @@ public class EnemyController : MonoBehaviour
             else if (haveLastKnownPosition) GoLastKnownPosition();
             else if (timeUntilPatrol <= 0)  Patrol();
             else timeUntilPatrol -= Time.deltaTime;
+
+        if (health <= 0)
+        {
+            score = GameObject.Find("Score Hud").GetComponent<ScoreHud>();
+            score.kill++;
+            score.DoTheThing();
+            Destroy(gameObject);
+        }
     }
 
     private void Patrol()
@@ -119,13 +127,6 @@ public class EnemyController : MonoBehaviour
         {
             if (other.gameObject.GetComponent<Bullet>().whoShotMe.name == this.gameObject.name) { }
             else health -= other.gameObject.GetComponent<Bullet>().damage;
-            if (health <= 0)
-            {
-                score = GameObject.Find("Score Hud").GetComponent<ScoreHud>();
-                score.kill++;
-                score.DoTheThing();
-                Destroy(gameObject);
-            }
         }
     }
 
